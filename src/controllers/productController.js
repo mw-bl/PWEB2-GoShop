@@ -53,4 +53,16 @@ export const updateProduct = (req, res) => {
     }
 
     res.json(updateProduct);
+};
+
+export const deleteProduct = (req, res) => {
+    const id = parseInt(req.params.id);
+
+    const deleteProduct = productRepository.delete(id);
+
+    if (!deleteProduct) {
+        return res.status(404).json({ error: 'Product not found!'});
+    }
+
+    res.status(204).send();
 }
