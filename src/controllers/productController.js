@@ -41,3 +41,16 @@ export const createProduct = (req, res) => {
     const addedProduct = productRepository.add(newProduct);
     res.status(201).json(addedProduct);
 };
+
+export const updateProduct = (req, res) => {
+    const id = parseInt(req.params.id);
+    const { name, category, price } = req.body;
+
+    const updateProduct = productRepository.update(id, { name, category, price });
+
+    if (!updateProduct) {
+        return res.status(404).json({ error: 'Product not found!'});
+    }
+
+    res.json(updateProduct);
+}
