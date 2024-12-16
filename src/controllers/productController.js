@@ -29,3 +29,15 @@ export const listProducts = (req, res) => {
     res.json({ total: products.length, page, limit, data: paginatedProducts });
 };
 
+
+export const createProduct = (req, res) => {
+    const { name, category, price } = req.body;
+
+    if (!name || !category || !price) {
+        return res.status(400).json({ error: 'Name, category and price are required!'})
+    }
+
+    const newProduct = new Product(null, name, category, price);
+    const addedProduct = productRepository.add(newProduct);
+    res.status(201).json(addedProduct);
+};
